@@ -1,0 +1,11 @@
+- Really Simple Slacking - 
+- Lettore RSS multiutente con generazione di nuvola di tag -
+- Insegnamento: AMM Web, A.A. 2012/2013 -
+
+- Progetto con HTML/CSS/JS/PHP/SQL/AJAX -
+- Sviluppato da Riccardo Angius, matricola 45775 -
+
+È necessario solo modificare il file 'config.php' con le credenziali MySQL.
+
+Il sito cerca di installarsi automaticamente, supposto che l'utente MySQL possa creare nuovi database. 
+In caso contrario è necessario importare 'sql/custom_db.sql' nel database a disposizione, e di conseguenza modificare anche la costante MYSQL_DB.

@@ -1,0 +1,410 @@
+/*  In tutto il foglio di stile viene usata l'unità di misura EM per 
+ *	permettere accessibilità e il corretto rendering anche a chi avesse
+ *	bisogno di fare zoom
+ */
+
+/* Lo stile rispetta gli standard ed è stato testato con i layout engine 
+   Webkit e Gecko. Sono noti problemi con Trident la cui risoluzione comporta
+   dirty fixes ritenuti oltre lo scopo del progetto.
+ */
+
+/* Viene passato il controllo W3C eccetto per:
+ * - l'attributo proprietario -mox-box-sizing, necessario per il rendering omogeno degli input anche con Gecko
+ * - l'attributo overflow-wrap, ancora "Working draft"  in stato, ma ampiamento supportato come testimoniato da http://caniuse.com/wordwrap
+ * - un warning, ovvero, l'uso di un bordo di colore identico allo sfondo negli input, necessario per ottenere il bordo solo in caso di autocompletamento
+*/ 
+ 
+body {
+	background: #f9f6e6;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 1em;
+}
+body.install p {
+	display: block;
+	margin: 2em auto 0 auto;
+	width: 30em;
+}
+/* 	
+ * Tutti i div con posizione relativa per permettere il posizionamento 
+ * assoluto di qualsiasi elemento per poter misurare rispetto al genitori di primo livello 
+ */
+div {
+	position: relative;
+}
+
+input, select {
+	border: 0;
+	background-color: rgba(67, 102, 88, 0.6);
+	border: 1px solid rgba(67, 102, 88, 0.6);
+	/* Normalizza il comportamento tra i vari browser per far recepire in modo identico width e height impostati */
+	-moz-box-sizing: border-box;
+	box-sizing: border-box; 
+	color: #FFFFFF;
+	display: inline-block;
+	font-size: 0.8em;
+	height: 1.8em;
+	margin-right: 1em;
+	margin-top: 0.2em;
+	padding: 0.2em;
+	vertical-align: baseline;
+	width: 9em;
+}
+.hidden {
+	display: none;
+}
+.half_opacity {
+	opacity: 0.5;
+}
+.dismiss {
+	cursor: pointer
+}
+/* Messaggio d'errore */
+.error {
+	background: rgba(111,168,146, 0.9);
+	border-radius: 0.5em;
+	color: #FFFFFF;
+	padding: 2em;
+	margin-top: 2em;
+}
+/* Link per la rimozione di un messaggio d'errore */
+.error .dismiss {
+	bottom: 0.5em;
+	cursor: pointer;	
+	display: block;
+	font-size: 0.8em;
+	font-weight: bold;
+	position: absolute;
+	right: 1em;
+	text-transform: uppercase;
+}
+/* Copertura totale della pagina */
+#loading_overlay {
+	background-image: url('../images/loading.gif');
+	background-color: rgba(255, 255, 255, 0.8) !important;
+	height: 100%;
+	left: 0em;
+	position: fixed;
+	top: 0em;
+	width: 100%;
+	z-index: 101;
+}
+#main, #header {
+	margin: 0 auto 0 auto;
+	width: 31em;
+}
+/* Contenitore principale */
+#main {
+	border: 2em solid rgba(236, 232, 232, 0.3);
+	border-left: 0em;
+	border-top: 0em;
+	margin-bottom: 3em;
+	min-height: 40em;
+}
+/* Rimozione del bordo ornamentale laterale nella pagina di login */
+.is_login_page #main {
+	border: 0em;
+}
+#header {
+	background: url('../images/logo.png');
+	background-repeat: no-repeat;
+	height:7.5em;
+}
+/* Rende un link nella metà sinistra dell'header corrispondente al logo */
+#header a {
+	display: block;
+	height: 100%;
+	width: 46%;
+}
+#page_title {
+	color: #6FA892;
+	font-size: 2em;
+	font-weight: bold;
+}
+/* Contenitore del form di login */
+#login {
+	margin-top: 1em;
+	margin-bottom: 2em;
+}
+/* Contenitori degli input di login */
+#login div {
+	font-weight: bold;
+	display: inline-block;
+	margin-top: 1em;
+	margin-right: 0em;
+	width: 8em;
+}
+#bad_login.error {
+	position: fixed;
+	top: 5em;
+	width: 20em;
+}
+/* Suggerimento d'iscrizione */
+#newbie_tooltip {
+	background: rgba(222,221, 178, 0.8);
+	border-radius: 1em;
+	color: rgba(0, 0, 0, 0.7);
+	font-size: 0.8em;
+	font-weight: bold;
+	left: 20.5em;
+	padding: 1em;
+	position: absolute;
+	top: -6em;	
+	width: 13.5em;
+}
+#reader {
+	padding: 0.5em;
+	margin-top: 0.5em;
+}
+#tag_cloud {
+	background: url('../images/cloud_big.gif');
+	background-repeat: no-repeat;
+	padding: 2.5em 2.2em 2.5em 3em;
+	text-align: center;
+	width: 50em;
+	height: 30em;
+	opacity: 0.5;
+	z-index: 100;
+	position: fixed;
+	margin-left: -27.5em;
+	top: 80%;
+	left: 120%;
+	opacity: 0.5;
+}
+#more_tags, #tag_cloud .dismiss {
+	color: rgb(255, 255, 255);
+	font-weight: bold;
+	font-size: 0.85em;
+	display: block;
+	cursor: pointer;
+	position: absolute;
+	text-transform: uppercase;
+	
+}
+#more_tags {
+	bottom: 3.5em;
+	left: 35.5em;
+}
+#tag_cloud .dismiss {
+	left: 51em;
+	top: 1.8em;
+}
+#tag_container {
+	height: 28em;
+	margin-left: 2.5em;
+	margin-top: 0.7em;
+	margin-bottom: auto;
+	overflow-y: hidden;
+	text-align: center;
+	width: 45em;
+}
+#tag_container.loading {
+	background-image: url('../images/cloud-loading.gif') !important;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+div, #tag_container, .entry, #popular_sources {
+	line-height: normal;
+}
+#tag_cloud a, #tag_cloud a:hover, #tag_cloud a:visited {
+	color: #FFFFFF !important;	
+	text-decoration: none;	
+}
+.tag {
+	display: inline-block;
+	margin-right: 1.5em;
+}
+.tag .delete {
+	color: rgba(0, 0, 0, 0.7);
+	cursor: pointer;
+	font-weight: bold;
+	height: 1em;
+	opacity: 0;
+	position: absolute;
+	right: 0em;
+	top: 0em;
+	width: 1em;
+}
+
+#user_menu {
+	background: rgba(67,102,88, 0.7);
+	border-radius: 0.5em;
+	color: #FFF;
+	height: 5em;
+	padding: 1em;
+	position: absolute;
+	right: 5em;
+	top: -13em;
+	text-align: right;
+	width: 7em;
+}
+#hey {
+	color: #FFF;
+	font-size: 1em;
+	position: absolute;
+	left: 18em;
+	text-transform: capitalize;
+	top: -7.6em;
+	z-index: 1;
+}
+#logout {
+	color: white;
+	display: block;
+	font-size: 0.8em;
+	margin-top: 0.8em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+/* Div contenente il form di modifica fonti */
+#edit_sources {
+	background: rgba(236, 232, 232, 0.9);
+	border-radius: 1em;
+	height: 1.5em;
+	left: 0em;
+	margin: 0.5em;
+	padding: 0.5em;
+	text-align: left;
+	width: 35em;
+}
+/*  In fase di modifica delle fonti vengono
+	prevenute ulteriori chiamate AJAX nascondendo tutti i figli 
+	e mostrando un'animazione per segnalare la cosa
+*/
+#edit_sources.loading {
+	background-image: url('../images/loading-mini.gif') !important;
+	background-color: transparent !important;
+	background-repeat: repeat-x;
+}
+#edit_sources.loading * {
+	visibility: hidden;
+}
+#edit_sources input, #edit_sources select {
+	margin-top: 0;
+}
+/*  Tooltip per spronare l'utente a inserire una nuova fonte
+ 	nascosto di default 
+*/
+#type_something {
+	background: rgba(22, 126, 175, 0.7);
+	border-radius: 1em;
+	color: white;
+	cursor: pointer;
+	display: none;
+	font-size: 0.7em;
+	font-weight: bold;
+	position: absolute;
+	right: 0.8em;
+	top: 0.8em;
+	padding: 0.5em 1em 0.5em 1em;
+	width: 22em;
+	z-index: 1;
+}
+/* Se viene segnalata l'assenza di fonti, mostra il tooltip */
+.no_sources #type_something {
+	display: block;
+}
+/* Posizionamento assoluto rispetto al genitore più prossimo di tutti gli elementi contenuti nel form */
+#edit_sources * {
+	position: absolute;
+}
+#new_source_url {
+	left: 3em;
+}
+#add_source {
+	left: 13em;
+}
+#victim_source_id {
+	left: 23em;
+}
+#remove_source {
+	left: 33em;
+}
+/* Nelle pagine di tag asconde la porzione del form dedicata all'aggiunta di nuove fonti */
+.is_tag_page #new_source_url, .is_tag_page #add_source, .is_tag_page #type_something {
+	display: none;
+}
+.entry, #popular_sources {
+	background: rgba(0, 0, 0, 0.2);
+	margin-bottom: 5em;
+	margin-top: 1em;
+	padding: 0.8em;
+	padding-top: 1.5em;
+}
+#popular_sources a, #popular_sources a:hover, #popular_sources a:visited, 
+.entry a, .entry a:hover, .entry a:visited,
+.install a, .install a:hover, .install a:visited {
+	color: #436658;
+	text-decoration: none;
+}
+#popular_sources a {
+	display: block;
+	font-size: 0.9em;
+	margin-left: 2em;
+	margin-top: 0.6em;
+	margin-bottom: 0.3em;
+	font-weight: bold;
+}
+.entry .entry_source {
+	background: rgba(236, 232, 232, 0.6);
+	border-radius: 0.5em;
+	padding: 0.5em;
+	color: white;
+	font-weight: bold;
+	position: absolute;
+	left: 0em;
+	top: -1.4em;
+}
+.entry_source a, .entry_source a:hover, .entry_source a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+.entry .subscribe {
+	font-size: 0.7em;
+	font-weight: bold;
+	margin-bottom: 3em;
+}
+.entry .entry_title {
+	font-weight: bold;
+	margin-bottom: 0.4em;
+}
+.entry .entry_summary {
+	font-size: 0.9em;
+	overflow-wrap: break-word;
+}
+/* Normalizza le immagini troppo grandi */
+.entry img {
+	display: block;
+	height: auto;
+	width: auto;
+	margin: 0.5em;
+	max-width: 29em;
+	vertical-align: baseline !important;
+}
+.entry a.read_more {
+	color: white;
+	display: block;
+	font-size: 3em;
+	font-weight: bold;
+	margin-left: 9em;
+}
+.entry .subscribe {
+	cursor: pointer;
+	position: absolute;
+	right: 1em;
+	top: 0.5em;
+	text-transform: uppercase;
+}
+/* Segnalatore di fonte differente durante lo scrolling veloce */
+.entry .different_source {
+	background: rgba(22, 126, 175, 0.7);
+	border-radius: 1em;
+	width: 1em;
+	height: 1em;
+	position: absolute;
+	right: -2em;
+}
+/* elemento contente il link alla validazione W3C della pagina HTML */
+#w3c_validator {
+	width: 30em;
+	display: block;
+	margin: 0 auto 0 auto;
+}
